@@ -1,12 +1,6 @@
-
-//測試頁面是否建立成功
-// const LoginPage = props => {
-//     return <div>Login Page</div>
-// }
-// export default LoginPage;
-
 import { useState } from "react";
 import Card from "../components/UI/Card";
+import { Link } from "react-router-dom"
 
 const LoginPage = (props) => {
     //username欄位值
@@ -121,13 +115,15 @@ const LoginPage = (props) => {
 
                 <div className="flex justify-center text-sm py-4">
                     <p className="text-gray-400">沒有帳號?</p>
-                    <button className="ml-2 duration-200 text-violet-600 cursor-pointer">
-                        註冊
-                    </button>
+                    <Link to="/register">
+                        <button className="ml-2 duration-200 text-violet-600 cursor-pointer">
+                            註冊
+                        </button>
+                    </Link>
                 </div>
 
             </form>
-        </Card>
+        </Card >
     );
 };
 
