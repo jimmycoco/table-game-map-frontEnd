@@ -5,7 +5,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import RootLayout from './pages/Root';
 import HomePage from './pages/Home';
-import MapPage from './pages/Map'
+import MyMapComponent from './pages/Map'
+import LandmarkForm from './pages/apply'
 
 const router = createBrowserRouter([
   {
@@ -30,12 +31,21 @@ const router = createBrowserRouter([
     ]
   },
   {
+    
     path: '/map',
     element: <RootLayout />,
     children: [
-      { path: '/map', element: <MapPage /> }
+      { path: '/map', element: <MyMapComponent /> }
+    ]
+  },
+  {
+    path: '/apply',
+    element: <RootLayout />,
+    children: [
+      { path: '/apply', element: <LandmarkForm /> }
     ]
   }
+
 ])
 
 const App = () => {
