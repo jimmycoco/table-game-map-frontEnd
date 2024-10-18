@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import RootLayout from './pages/Root';
 import HomePage from './pages/Home';
+import MapPage from './pages/Map'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,13 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { path: '/register', element: <Register /> }
+    ]
+  },
+  {
+    path: '/map',
+    element: <RootLayout />,
+    children: [
+      { path: '/map', element: <MapPage /> }
     ]
   }
 ])

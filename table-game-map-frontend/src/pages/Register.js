@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Card from "../components/UI/Card";
+import "./Log.css"
 
 const RegisterPage = (props) => {
 
@@ -73,10 +74,10 @@ const RegisterPage = (props) => {
 
     return (
         <Card>
-            <form className="w-full" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
 
-                <div className="mb-4">
-                    <label htmlFor="name" className="custom-font">使用者名稱</label>
+                <div>
+                    <label htmlFor="name">使用者名稱</label>
                     <input
                         id="name"
                         type="text"
@@ -84,17 +85,15 @@ const RegisterPage = (props) => {
                         value={username}
                         onBlur={handleUsernameInputBlur}
                         onChange={handleUsernameInputChange}
-                        className={`mt-1 block w-full px-3 py-2 bg-white border rounded-md text-sm
-          shadow-sm placeholder-slate-400 focus:outline-none focus:ring-1    
-          ${usernameInputClasses}`}
+                        className={`inputbox ${usernameInputClasses}`}
                     />
                     {!usernameInputIsInValid || (
-                        <p className="text-red-500 text-sm">使用者名稱為必填欄位</p>
+                        <p className="remind-word">使用者名稱為必填欄位</p>
                     )}
 
                 </div>
-                <div className="mb-4">
-                    <label htmlFor="username" className="custom-font">帳號</label>
+                <div>
+                    <label htmlFor="username">帳號</label>
                     <input
                         id="username"
                         type="text"
@@ -102,17 +101,15 @@ const RegisterPage = (props) => {
                         value={username}
                         onBlur={handleUsernameInputBlur}
                         onChange={handleUsernameInputChange}
-                        className={`mt-1 block w-full px-3 py-2 bg-white border rounded-md text-sm
-          shadow-sm placeholder-slate-400 focus:outline-none focus:ring-1    
-          ${usernameInputClasses}`}
+                        className={`inputbox ${usernameInputClasses}`}
                     />
                     {!usernameInputIsInValid || (
-                        <p className="text-red-500 text-sm">帳號為必填欄位</p>
+                        <p className="remind-word">帳號為必填欄位</p>
                     )}
                 </div>
 
                 <div>
-                    <label htmlFor="password" className="custom-font">密碼</label>
+                    <label htmlFor="password">密碼</label>
                     <input
                         id="password"
                         type="text"
@@ -120,17 +117,15 @@ const RegisterPage = (props) => {
                         value={password}
                         onBlur={handlePasswordInputBlur}
                         onChange={handlePasswordInputChange}
-                        className={`mt-1 block w-full px-3 py-2 bg-white border rounded-md text-sm
-          shadow-sm placeholder-slate-400 focus:outline-none focus:ring-1
-          ${passwordInputClasses}`}
+                        className={`inputbox ${passwordInputClasses}`}
                     />
                     {!passwordInputIsInValid || (
-                        <p className="text-red-500 text-sm">密碼為必填欄位</p>
+                        <p className="remind-word">密碼為必填欄位</p>
                     )}
                 </div>
 
                 <div>
-                    <label htmlFor="checkPassword" className="custom-font">確認密碼</label>
+                    <label htmlFor="checkPassword">確認密碼</label>
                     <input
                         id="checkPassword"
                         type="text"
@@ -138,16 +133,14 @@ const RegisterPage = (props) => {
                         value={password}
                         onBlur={handlePasswordInputBlur}
                         onChange={handlePasswordInputChange}
-                        className={`mt-1 block w-full px-3 py-2 bg-white border rounded-md text-sm
-          shadow-sm placeholder-slate-400 focus:outline-none focus:ring-1
-          ${passwordInputClasses}`}
+                        className={`inputbox ${usernameInputClasses}`}
                     />
                     {!passwordInputIsInValid || (
-                        <p className="text-red-500 text-sm">與密碼不符</p>
+                        <p className="remind-word">確認密碼為必填欄位</p>
                     )}
                 </div>
 
-                <button className="mt-8 px-4 py-2 bg-violet-600 hover:bg-violet-700  duration- 200 text-white w-full rounded cursor-pointer">
+                <button className="register-button">
                     註冊
                 </button>
 

@@ -5,6 +5,7 @@ const RootLayout = props => {
     return <div className="overflow-x-hidden">
         <Header />
         <Outlet />
+        {/* footer */}
     </div>
 }
 

@@ -1,0 +1,81 @@
+form {
+    width: 100%;
+}
+
+
+.remind-word {
+    color: red;
+    font: 14px;
+}
+
+.inputbox {
+    margin-top: 4px;
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 6px;
+    font-size: 14px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    color: #a1b0c5;
+}
+
+.inputbox:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px #3b82f6;
+}
+
+/* 當輸入框無效時的樣式 */
+.input-invalid {
+    border-color: #fca5a5;
+}
+
+.input-invalid:focus {
+    box-shadow: 0 0 0 1px #ef4444;
+}
+
+/* 當輸入框有效時的樣式 */
+.input-valid {
+    border-color: #cbd5e1;
+}
+
+.input-valid:focus {
+    box-shadow: 0 0 0 1px #0ea5e9;
+}
+
+.login-button,
+.register-button {
+    margin-top: 32px;
+    padding: 8px 16px;
+    background-color: #8e59ea;
+    color: white;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 200ms;
+}
+
+.login-button:hover,
+.register-button:hover {
+    background-color: #6d28d9;
+}
+
+.need-register {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.to-register {
+    margin-left: 8px;
+    transition: 200ms;
+    color: #8e59ea;
+    cursor: pointer;
+}
+
+.to-register:hover {
+    color: #6d28d9;
+}

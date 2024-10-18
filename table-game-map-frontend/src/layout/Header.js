@@ -1,30 +1,31 @@
 import { Link } from "react-router-dom";
+import "./Header.css"
 
 const Header = (props) => {
     return (
-        <header className="w-screen h-14 bg-black flex justify-between items-center px-8">
-            <Link to="/">
-                <div className="flex justify-between items-center">
+        <header>
+            <Link to="/" className="link">
+                <div className="logo">
                     <h3 className="ml-4 text-white">桌遊地圖</h3>
                 </div>
             </Link>
-            <div className="text-gray-200">
-                <Link to="/">
-                    <button className="px-8 py-2 hover:text-white">地圖</button>
+            <nav className="navigation-bar">
+                <Link to="/map" className="link">
+                    <p className="navigation-item">地圖</p>
                 </Link>
-                <Link to="/">
-                    <button className="px-8 py-2 hover:text-white">貼文</button>
+                <Link to="/" className="link">
+                    <p className="navigation-item">貼文</p>
                 </Link>
-                <Link to="/login">
-                    <button className="px-8 py-2 hover:text-white">新增店家</button>
+                <Link to="/login" className="link">
+                    <p className="navigation-item">新增店家</p>
                 </Link>
-            </div>
+            </nav>
 
-            <div className="flex items-center">
-                <Link to="/login">
-                    <button className="text-gray-200 px-4 py-2 hover:text-white">
+            <div className="log-state">
+                <Link to="/login" className="link">
+                    <p className="to-login">
                         登入
-                    </button>
+                    </p>
                 </Link>
             </div>
         </header>

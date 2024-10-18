@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Card from "../components/UI/Card";
 import { Link } from "react-router-dom"
+import "./Log.css"
 
 const LoginPage = (props) => {
     //username欄位值
@@ -62,19 +63,18 @@ const LoginPage = (props) => {
 
     //根據usernameInput是否valid來顯示對應樣式 
     const usernameInputClasses = usernameInputIsInValid
-        ? "border-red-300 focus:ring-red-500"
-        : "border-slate-300 focus:ring-sky-500";
+        ? "input-invalid"
+        : "input-valid";
 
     //根據passwordInput是否valid來顯示對應樣式 
     const passwordInputClasses = passwordInputIsInValid
-        ? "border-red-300 focus:ring-red-500"
-        : "border-slate-300 focus:ring-sky-500";
-
+        ? "input-invalid"
+        : "input-valid";
     return (
         <Card>
-            <form className="w-full" onSubmit={handleSubmit}>
-                <div className="mb-4">
-                    <label htmlFor="username" className="custom-font">帳號</label>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="username">帳號</label>
                     <input
                         id="username"
                         type="text"
@@ -82,43 +82,39 @@ const LoginPage = (props) => {
                         value={username}
                         onBlur={handleUsernameInputBlur}
                         onChange={handleUsernameInputChange}
-                        className={`mt-1 block w-full px-3 py-2 bg-white border rounded-md text-sm
-          shadow-sm placeholder-slate-400 focus:outline-none focus:ring-1    
-          ${usernameInputClasses}`}
+                        className={`inputbox ${usernameInputClasses}`}
                     />
                     {!usernameInputIsInValid || (
-                        <p className="text-red-500 text-sm">帳號為必填欄位</p>
+                        <p className="remind-word">帳號為必填欄位</p>
                     )}
                 </div>
 
                 <div>
-                    <label htmlFor="password" className="custom-font">密碼</label>
+                    <label htmlFor="password">密碼</label>
                     <input
                         id="password"
-                        type="text"
+                        type="password"
                         placeholder="請輸入密碼"
                         value={password}
                         onBlur={handlePasswordInputBlur}
                         onChange={handlePasswordInputChange}
-                        className={`mt-1 block w-full px-3 py-2 bg-white border rounded-md text-sm
-          shadow-sm placeholder-slate-400 focus:outline-none focus:ring-1
-          ${passwordInputClasses}`}
+                        className={`inputbox ${passwordInputClasses}`}
                     />
                     {!passwordInputIsInValid || (
-                        <p className="text-red-500 text-sm">密碼為必填欄位</p>
+                        <p className="remind-word">密碼為必填欄位</p>
                     )}
                 </div>
 
-                <button className="mt-8 px-4 py-2 bg-violet-600 hover:bg-violet-700  duration- 200 text-white w-full rounded cursor-pointer">
+                <button className="login-button">
                     登入
                 </button>
 
-                <div className="flex justify-center text-sm py-4">
-                    <p className="text-gray-400">沒有帳號?</p>
+                <div className="need-register">
+                    <p style={{ color: 'gray' }}>沒有帳號?</p>
                     <Link to="/register">
-                        <button className="ml-2 duration-200 text-violet-600 cursor-pointer">
+                        <p className="to-register">
                             註冊
-                        </button>
+                        </p>
                     </Link>
                 </div>
 
