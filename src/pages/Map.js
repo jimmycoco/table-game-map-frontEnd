@@ -31,7 +31,7 @@ function MyMapComponent() {
 
             markerPositions.forEach((position) => {
                 const marker = new window.google.maps.marker.AdvancedMarkerElement({
-                    map:map,
+                    map: map,
                     position: new window.google.maps.LatLng(position.lat, position.lng),
                     title: position.info || '標記點'
                 });

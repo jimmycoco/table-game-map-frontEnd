@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Card from "../components/UI/Card";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "./Log.css"
+import api from "../api/api"
 
 const LoginPage = (props) => {
     //username欄位值
@@ -52,13 +53,30 @@ const LoginPage = (props) => {
         setPasswordTouched(true);
     };
 
+    const navigate = useNavigate()
+
     //處理送出表單
     const handleSubmit = (event) => {
+        // 如果表單無效，不繼續執行後續動作
         if (!formIsValid) return;
-
+        // 阻止預設的表單行為，改為以ajax提交請求
         event.preventDefault();
-
-        //呼叫登入API
+        // 建立使用者輸入的資料物件
+        const userData = {
+            username,
+            password,
+        };
+        // 使用api發送post登入請求
+        api
+            .post("/auth/login", userData)
+            .then((result) => {
+                localStorage.setItem("user", JSON.stringify(result));
+                navigate('/');
+            })
+            .catch((err) => {
+                alert("登入失敗，請重新登入")
+                console.error(err);
+            })
     };
 
     //根據usernameInput是否valid來顯示對應樣式 

@@ -11,9 +11,7 @@ root.render(
     <App />
   </React.StrictMode>
 );
-App.get('/', (req, res) => {
-  res.sendFile(__dirname + '/googlemap.html');
-});
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
