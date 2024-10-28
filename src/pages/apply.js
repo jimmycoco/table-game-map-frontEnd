@@ -97,11 +97,13 @@ const LandmarkForm = () => {
                 </div>
                 <div className="form-group">
                     <label>營業時間：</label>
-                    {['一', '二', '三', '四', '五', '六', '日'].map(day => (
-                        <div key={day}>
-                            <label htmlFor={day}>{`星期${day.charAt(0).toUpperCase() + day.slice(1)}`}</label>
-                            <input type="text" id={day} name={day} className="form-control" placeholder="00:00~23:59" required onChange={handleChange} />
+                    {[['monday','一'], ['tuesday','二'], ['wednesday','三'], ['thursday','四'], ['friday','五'], ['saturday','六'], ['sunday','日']].map(day => (
+                        
+                        <div key={day[0]}>
+                            <label htmlFor={day}>{`星期${day[1]}`}</label>
+                            <input type="text" id={day[0]} name={day[0]} className="form-control" placeholder="00:00~23:59" required onChange={handleChange} />
                         </div>
+                        
                     ))}
                 </div>
                 <button type="submit" className="btn btn-primary">提交</button>

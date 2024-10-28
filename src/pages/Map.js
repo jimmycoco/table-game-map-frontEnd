@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import React, { useState } from 'react';
+import { GoogleMap, LoadScript, InfoWindow, MarkerF } from '@react-google-maps/api';
 
 const containerStyle = {
     width: '100%',
@@ -21,28 +21,7 @@ const markerPositions = [
 ];
 
 function MyMapComponent() {
-    const mapRef = useRef(null);
     const [selectedMarker, setSelectedMarker] = useState(null);
-
-    useEffect(() => {
-        if (mapRef.current && window.google) {
-            const map = mapRef.current.state.map;
-            console.log('Map loaded:', map); // 確認地圖實例是否存在
-
-            markerPositions.forEach((position) => {
-                const marker = new window.google.maps.marker.AdvancedMarkerElement({
-                    map: map,
-                    position: new window.google.maps.LatLng(position.lat, position.lng),
-                    title: position.info || '標記點'
-                });
-
-                // 點擊事件處理
-                marker.addListener('click', () => {
-                    setSelectedMarker(position);
-                });
-            });
-        }
-    }, [mapRef]);
 
     return (
         <LoadScript googleMapsApiKey="AIzaSyDw31RJycf8ubiNQfeUZY1lxwC86Qp06eQ">
@@ -50,25 +29,27 @@ function MyMapComponent() {
                 mapContainerStyle={containerStyle}
                 center={center}
                 zoom={12}
-                onLoad={(map) => {
-                    mapRef.current = { state: { map } }; // 儲存地圖實例
-                }}
             >
+                <MarkerF position={center} />
+                {markerPositions.map((position, index) => (
+                    <MarkerF
+                        key={index}
+                        position={position}
+                        onClick={() => setSelectedMarker(position)}
+                    />
+                ))}
                 {selectedMarker && (
-                    <div
-                        style={{
-                            position: 'absolute',
-                            background: 'white',
-                            padding: '10px',
-                            borderRadius: '5px',
-                            transform: `translate(${selectedMarker.lat}px, ${selectedMarker.lng}px)`
-                        }}
+                    <InfoWindow
+                        position={{ lat: selectedMarker.lat, lng: selectedMarker.lng }}
+                        onCloseClick={() => setSelectedMarker(null)}
                     >
-                        <h4>標記資訊</h4>
-                        <p>{selectedMarker.info}</p>
-                        <p>緯度: {selectedMarker.lat}</p>
-                        <p>經度: {selectedMarker.lng}</p>
-                    </div>
+                        <div>
+                            <h4>標記資訊</h4>
+                            <p>{selectedMarker.info}</p>
+                            <p>緯度: {selectedMarker.lat}</p>
+                            <p>經度: {selectedMarker.lng}</p>
+                        </div>
+                    </InfoWindow>
                 )}
             </GoogleMap>
         </LoadScript>

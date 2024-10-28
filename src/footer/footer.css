@@ -1,0 +1,62 @@
+/* Footer.css */
+
+.footer {
+    background-color: #333; /* 設置頁腳背景顏色 */
+    color: #fff; /* 設置文字顏色 */
+    padding: 20px; /* 設置頁腳內部的間距 */
+    text-align: center; /* 對齊頁腳內容到中間 */
+  }
+  
+  .footer-container {
+    max-width: 1200px; /* 設置頁腳最大寬度 */
+    margin: 0 auto; /* 使頁腳容器置中 */
+  }
+  
+  .footer-sections {
+    display: flex; /* 使用 flex 排版頁腳內容 */
+    justify-content: space-between; /* 使內容區塊之間均勻分佈 */
+    flex-wrap: wrap; /* 當屏幕變窄時，讓內容區塊自動換行 */
+  }
+  
+  .footer-section {
+    flex: 1; /* 使每個區塊均等分佈 */
+    min-width: 200px; /* 設置每個區塊的最小寬度 */
+    margin: 10px; /* 設置每個區塊的外邊距 */
+  }
+  
+  .footer-links {
+    list-style: none; /* 移除列表的預設樣式 */
+    padding: 0; /* 移除內邊距 */
+  }
+  
+  .footer-links li {
+    margin: 5px 0; /* 設置每個連結的上下間距 */
+  }
+  
+  .footer-links a {
+    color: #fff; /* 設置連結的顏色 */
+    text-decoration: none; /* 移除連結的下劃線 */
+  }
+  
+  .social-icons {
+    display: flex; /* 使用 flex 排版社交媒體圖標 */
+    justify-content: space-around; /* 使圖標之間均勻分佈 */
+  }
+  
+  .social-icons a img {
+    width: 30px; /* 設置社交媒體圖標的大小 */
+  }
+  
+  .footer-divider {
+    border-color: #555; /* 設置分隔線的顏色 */
+    margin: 20px 0; /* 設置分隔線的上下間距 */
+  }
+  
+  .footer-copyright {
+    margin-top: 10px; /* 設置版權聲明的上邊距 */
+  }
+  
+  .footer a {
+    color: #fff; /* 設置頁腳內連結的顏色 */
+  }
+  

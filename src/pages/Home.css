@@ -1,0 +1,7 @@
+.homepage {
+    background-image: url('./home_back.jpg');
+    background-size: cover; /* 視需要調整為 'contain' 或其他屬性 */
+    background-position: center;
+    background-attachment: fixed; /* 背景圖片在滾動時保持固定 */
+    height: 100vh; /* 根據需要調整高度 */
+  }

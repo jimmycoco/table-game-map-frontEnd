@@ -1,6 +1,8 @@
+import "./Home.css"
 
 
 const HomePage = props => {
-    return <div>Home Page</div>
+    return <div className="homepage"></div>;
+
 }
 export default HomePage;
