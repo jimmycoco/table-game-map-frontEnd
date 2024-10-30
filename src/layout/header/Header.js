@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Header.css"
 
-//判斷是否登入
-
-
 const Header = (props) => {
     return (
         <header>
