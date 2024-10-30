@@ -72,12 +72,14 @@ const LoginPage = (props) => {
             .then((result) => {
                 localStorage.setItem("user", JSON.stringify(result));
                 navigate('/');
+                window.location.reload();
             })
             .catch((err) => {
                 alert("登入失敗，請重新登入")
                 console.error(err);
             })
     };
+    
 
     //根據usernameInput是否valid來顯示對應樣式 
     const usernameInputClasses = usernameInputIsInValid

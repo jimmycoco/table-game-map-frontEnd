@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
 import "./Header.css"
+import useIsLogged from "../../hooks/useIsLogged";
 
 //判斷是否登入
 
 
+
 const Header = (props) => {
+    const uesrdelete = ()=>{
+        localStorage.removeItem('user');//刪除
+        window.location.reload();
+    }
+    const { isLoggedIn} = useIsLogged();
     return (
         <header>
             <Link to="/" className="link">
@@ -19,17 +26,27 @@ const Header = (props) => {
                 <Link to="/" className="link">
                     <p className="navigation-item">貼文</p>
                 </Link>
-                <Link to="/login" className="link">
-                    <p className="navigation-item">新增店家</p>
-                </Link>
+                {isLoggedIn
+            ? (<Link to="/apply" className="link">
+                <p className="navigation-item">新增店家</p>
+                </Link>)
+            : (<Link to="/login" className="link">
+                <p className="navigation-item">新增店家</p>
+                </Link>)
+        }
             </nav>
 
             <div className="log-state">
-                <Link to="/login" className="link">
-                    <p className="to-login">
-                        登入
-                    </p>
-                </Link>
+                
+            {isLoggedIn
+            ? (<Link to="/" className="link">
+                <p onClick={uesrdelete} className="to-login">登出</p>
+                </Link>)
+            : (<Link to="/login" className="link">
+                <p className="to-login">登入</p>
+                </Link>)
+        }
+        
             </div>
         </header>
     );
