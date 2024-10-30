@@ -9,7 +9,7 @@ import { Modal, Button } from 'react-bootstrap';
 
 const center = {
     lat: 25.0330, // 台北
-    lng: 121.5654
+    lng: 121.5654,
 };
 
 const locations = [
