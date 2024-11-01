@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/UI/Card";
 import "./Log.css"
 import useInput from "../hooks/useInput";
+import api from "../api/api"
 
 const RegisterPage = (props) => {
 
@@ -91,11 +92,33 @@ const RegisterPage = (props) => {
 
     //處理送出表單
     const handleSubmit = (event) => {
+        // 如果表單無效，不繼續執行後續動作
         if (!formIsValid) return;
-
+        // 阻止預設的表單行為，改為以ajax提交請求
         event.preventDefault();
+        // 建立使用者輸入的資料物件
+        const userData = {
+            name,
+            username,
+            password,
+        };
 
         //呼叫註冊API
+        api
+            .post("/auth/register", userData)
+            .then((result) => {
+                alert(result);
+                localStorage.setItem("user", JSON.stringify(result));
+                navigate("/login");
+            })
+            .catch((error) => {
+                console.error(error);
+                if (error.response.data.error.message == "User already exists.") {
+                    alert("帳號已存在");
+                } else {
+                    alert("註冊失敗，請檢察輸入內容");
+                }
+            });
     };
 
     const nameInputClasses = nameInputHasError

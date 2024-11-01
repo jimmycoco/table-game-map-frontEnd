@@ -78,7 +78,7 @@ const LandmarkForm = () => {
                 <div className="form-group">
                     <label>現場是否有桌遊可以已購買</label><br />
                     <input type="radio" name="buyGame" value="yesbuygame" onChange={handleChange} /> 有
-                    <input type="radio" name="buyGame" value="nosbuygame" onChange={handleChange} /> 沒有
+                    <input type="radio" name="buyGame" value="nobuygame" onChange={handleChange} /> 沒有
                 </div>
                 <div className="form-group">
                     <label>有無包廂</label><br />
@@ -97,13 +97,13 @@ const LandmarkForm = () => {
                 </div>
                 <div className="form-group">
                     <label>營業時間：</label>
-                    {[['monday','一'], ['tuesday','二'], ['wednesday','三'], ['thursday','四'], ['friday','五'], ['saturday','六'], ['sunday','日']].map(day => (
-                        
+                    {[['monday', '一'], ['tuesday', '二'], ['wednesday', '三'], ['thursday', '四'], ['friday', '五'], ['saturday', '六'], ['sunday', '日']].map(day => (
+
                         <div key={day[0]}>
                             <label htmlFor={day}>{`星期${day[1]}`}</label>
                             <input type="text" id={day[0]} name={day[0]} className="form-control" placeholder="00:00~23:59" required onChange={handleChange} />
                         </div>
-                        
+
                     ))}
                 </div>
                 <button type="submit" className="btn btn-primary">提交</button>
