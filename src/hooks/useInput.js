@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 const useInput = (validateValue) => {
@@ -10,7 +11,7 @@ const useInput = (validateValue) => {
     const { isValid, errorMessage } = validateValue(enteredValue);
 
     //是否有錯誤
-    const hasError = !valueIsValid && isTouched;
+    const hasError = !isValid && isTouched;
 
     //change事件處理
     const valueChangeHandler = (event) => {

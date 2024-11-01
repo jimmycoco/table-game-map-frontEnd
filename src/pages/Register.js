@@ -1,56 +1,93 @@
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/UI/Card";
 import "./Log.css"
+import useInput from "../hooks/useInput";
 
 const RegisterPage = (props) => {
 
-    //username欄位值
-    const [username, setUsername] = useState("");
-    //username touched值
-    const [usernameTouched, setUsernameTouched] = useState(false);
+    const navigate = useNavigate();
 
-    //password欄位值
-    const [password, setPassword] = useState("");
-    //password touched欄位值
-    const [passwordTouched, setPasswordTouched] = useState(false);
+    const validateName = (value) => {
+        if (value.trim() === '') {
+            return { isValid: false, errorMessage: '使用者名稱不能為空' };
+        }
+        return { isValid: true };
+    };
 
 
-    //username的檢核
-    const usernameIsValid = username.trim() !== "";
-    const usernameInputIsInValid = !usernameIsValid && usernameTouched;
+    //帳號確認
+    const validateUsername = (value) => {
+        if (value.trim() === '') {
+            return { isValid: false, errorMessage: '帳號不能為空' };
+        }
+        return { isValid: true, errorMessage: '' };
+    };
 
-    //password的檢核
-    const passwordIsValid = password.trim() !== "";
-    const passwordInputIsInValid = !passwordIsValid && passwordTouched;
+    //密碼確認
+    const validatePassword = (value) => {
+        if (value.trim() === '') {
+            return { isValid: false, errorMessage: '密碼不能為空' };
+        }
+        if (value.length < 6) {
+            return { isValid: false, errorMessage: '密碼需要超過六個字' };
+        }
+        return { isValid: true, errorMessage: '' };
+    };
 
-    //表單的狀態
+
+    //密碼二次確認
+    const validateConfirmPassword = (value) => {
+        if (value.trim() === '') {
+            return { isValid: false, errorMessage: '確認密碼不能為空' };
+        }
+
+        if (value !== password) {
+            return { isValid: false, errorMessage: '和密碼不同' };
+        }
+        return { isValid: true, errorMessage: '' };
+    };
+
+    const {
+        value: name,
+        isValid: nameIsValid,
+        errorMessage: nameErrorMessage,
+        hasError: nameInputHasError,
+        valueChangeHandler: nameChangeHandler,
+        inputBlurHandler: nameBlurHandler,
+    } = useInput(validateName);
+
+    const {
+        value: username,
+        isValid: usernameIsValid,
+        errorMessage: usernameErrorMessage,
+        hasError: usernameInputHasError,
+        valueChangeHandler: usernameChangeHandler,
+        inputBlurHandler: usernameBlurHandler,
+    } = useInput(validateUsername);
+
+    const {
+        value: password,
+        isValid: passwordIsValid,
+        errorMessage: passwordErrorMessage,
+        hasError: passwordInputHasError,
+        valueChangeHandler: passwordChangeHandler,
+        inputBlurHandler: passwordBlurHandler,
+    } = useInput(validatePassword);
+
+    const {
+        value: confirmPassword,
+        isValid: confirmPasswordIsValid,
+        errorMessage: confirmPasswordErrorMessage,
+        hasError: confirmPasswordInputHasError,
+        valueChangeHandler: confirmPasswordChangeHandler,
+        inputBlurHandler: confirmPasswordBlurHandler,
+    } = useInput(validateConfirmPassword);
+
     let formIsValid = false;
 
-    if (usernameIsValid && passwordIsValid) {
+    if (nameIsValid && usernameIsValid && passwordIsValid && confirmPasswordIsValid) {
         formIsValid = true;
     }
-
-    //當username input值變更時做的處理
-    const handleUsernameInputChange = (event) => {
-        setUsernameTouched(true);
-        setUsername(event.target.value);
-    };
-
-    //當username input值blur時做的處理
-    const handleUsernameInputBlur = (event) => {
-        setUsernameTouched(true);
-    };
-
-    //當password input值變更時做的處理
-    const handlePasswordInputChange = (event) => {
-        setPassword(event.target.value);
-        setPasswordTouched(true);
-    };
-
-    //當password input值blur時做的處理
-    const handlePasswordInputBlur = (event) => {
-        setPasswordTouched(true);
-    };
 
     //處理送出表單
     const handleSubmit = (event) => {
@@ -61,16 +98,20 @@ const RegisterPage = (props) => {
         //呼叫註冊API
     };
 
-    //根據usernameInput是否valid來顯示對應樣式 
-    const usernameInputClasses = usernameInputIsInValid
-        ? "border-red-300 focus:ring-red-500"
-        : "border-slate-300 focus:ring-sky-500";
+    const nameInputClasses = nameInputHasError
+        ? "input-invalid"
+        : "input-valid";
 
-    //根據passwordInput是否valid來顯示對應樣式 
-    const passwordInputClasses = passwordInputIsInValid
-        ? "border-red-300 focus:ring-red-500"
-        : "border-slate-300 focus:ring-sky-500";
+    const usernameInputClasses = usernameInputHasError
+        ? "input-invalid"
+        : "input-valid";
+    const passwordInputClasses = passwordInputHasError
+        ? "input-invalid"
+        : "input-valid";
 
+    const confirmPasswordInputClasses = confirmPasswordInputHasError
+        ? "input-invalid"
+        : "input-valid";
 
     return (
         <Card>
@@ -82,13 +123,13 @@ const RegisterPage = (props) => {
                         id="name"
                         type="text"
                         placeholder="請輸入使用者名稱"
-                        value={username}
-                        onBlur={handleUsernameInputBlur}
-                        onChange={handleUsernameInputChange}
-                        className={`inputbox ${usernameInputClasses}`}
+                        value={name}
+                        onBlur={nameBlurHandler}
+                        onChange={nameChangeHandler}
+                        className={`inputbox ${nameInputClasses}`}
                     />
-                    {!usernameInputIsInValid || (
-                        <p className="remind-word">使用者名稱為必填欄位</p>
+                    {nameInputHasError && (
+                        <p className="remind-word">{nameErrorMessage}</p>
                     )}
 
                 </div>
@@ -99,12 +140,12 @@ const RegisterPage = (props) => {
                         type="text"
                         placeholder="請輸入帳號"
                         value={username}
-                        onBlur={handleUsernameInputBlur}
-                        onChange={handleUsernameInputChange}
+                        onBlur={usernameBlurHandler}
+                        onChange={usernameChangeHandler}
                         className={`inputbox ${usernameInputClasses}`}
                     />
-                    {!usernameInputIsInValid || (
-                        <p className="remind-word">帳號為必填欄位</p>
+                    {usernameInputHasError && (
+                        <p className="remind-word">{usernameErrorMessage}</p>
                     )}
                 </div>
 
@@ -112,31 +153,31 @@ const RegisterPage = (props) => {
                     <label htmlFor="password">密碼</label>
                     <input
                         id="password"
-                        type="text"
+                        type="password"
                         placeholder="請輸入密碼"
                         value={password}
-                        onBlur={handlePasswordInputBlur}
-                        onChange={handlePasswordInputChange}
+                        onBlur={passwordBlurHandler}
+                        onChange={passwordChangeHandler}
                         className={`inputbox ${passwordInputClasses}`}
                     />
-                    {!passwordInputIsInValid || (
-                        <p className="remind-word">密碼為必填欄位</p>
+                    {passwordInputHasError && (
+                        <p className="remind-word">{passwordErrorMessage}</p>
                     )}
                 </div>
 
                 <div>
-                    <label htmlFor="checkPassword">確認密碼</label>
+                    <label htmlFor="confirmPassword">確認密碼</label>
                     <input
-                        id="checkPassword"
-                        type="text"
+                        id="confirmPassword"
+                        type="password"
                         placeholder="再次輸入密碼"
-                        value={password}
-                        onBlur={handlePasswordInputBlur}
-                        onChange={handlePasswordInputChange}
-                        className={`inputbox ${usernameInputClasses}`}
+                        value={confirmPassword}
+                        onBlur={confirmPasswordBlurHandler}
+                        onChange={confirmPasswordChangeHandler}
+                        className={`inputbox ${confirmPasswordInputClasses}`}
                     />
-                    {!passwordInputIsInValid || (
-                        <p className="remind-word">確認密碼為必填欄位</p>
+                    {confirmPasswordInputHasError && (
+                        <p className="remind-word">{confirmPasswordErrorMessage}</p>
                     )}
                 </div>
 
@@ -144,6 +185,14 @@ const RegisterPage = (props) => {
                     註冊
                 </button>
 
+                <div className="need-register">
+                    <p style={{ color: 'gray' }}>已經有帳號了?</p>
+                    <Link to="/login">
+                        <p className="to-register">
+                            登入
+                        </p>
+                    </Link>
+                </div>
             </form>
         </Card >
     );

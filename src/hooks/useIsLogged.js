@@ -11,7 +11,6 @@ function useIsLogged() {
             try {
                 const parsedUser = JSON.parse(storedUser);
                 const token = parsedUser && parsedUser.data && parsedUser.data.token
-                console.log(parsedUser.data)
                 if (token) {
                     setIsLoggedIn(true);
                     setUser(parsedUser.data);
