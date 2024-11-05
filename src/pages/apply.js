@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from "react-router-dom"
+// import useIsLogged from '../hooks/useIsLogged';
+import api from "../api/api"
 
 const LandmarkForm = () => {
+    const navigate = useNavigate();
+    // 嘗試使用useIsLogged確認登入狀態來避免未登入而直接進入這個頁面，但是失敗了，因為不明原因useIsLogged會多次呼叫
+    // 而前面幾次呼叫的結果isLoggedIn不明原因會是false造成直接返回首頁
+    // useEffect(() => {
+    //     if (!isLoggedIn) {
+    //         navigate('/');  // 跳轉到首頁
+    //     }
+    // }, [isLoggedIn, navigate]);
+
+
     const [formData, setFormData] = useState({
         store: '',
         storeAddress: '',
@@ -22,6 +34,7 @@ const LandmarkForm = () => {
             saturday: '',
             sunday: '',
         },
+        whoapply: 'test1',
     });
 
     const handleChange = (e) => {
@@ -36,11 +49,23 @@ const LandmarkForm = () => {
         }
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // 在這裡處理提交邏輯
-        console.log('Submitted Data:', formData);
-        // 你可以顯示模態框或其他操作
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        //console.log('Submitted Data:', formData);
+        api
+            .post("/point/addPoint", formData)
+            .then((result) => {
+                navigate('/');
+                alert("已收到申請!");
+            })
+            .catch((err) => {
+                console.error(err);
+                if (err.response.data.error.message === "User already exists.") {
+                    alert("此地址已被申請過");
+                } else {
+                    alert("申請失敗，請檢察申請資料");
+                }
+            })
     };
 
     return (

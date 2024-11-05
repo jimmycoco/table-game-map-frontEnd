@@ -5,7 +5,7 @@ import useIsLogged from "../../hooks/useIsLogged";
 
 
 const Header = (props) => {
-    const uesrdelete = () => {
+    const userdelete = () => {
         localStorage.removeItem('user');//刪除
         window.location.reload();
     }
@@ -38,7 +38,7 @@ const Header = (props) => {
 
                 {isLoggedIn
                     ? (<Link to="/" className="link">
-                        <p onClick={uesrdelete} className="to-login">登出</p>
+                        <p onClick={userdelete} className="to-login">登出</p>
                     </Link>)
                     : (<Link to="/login" className="link">
                         <p className="to-login">登入</p>

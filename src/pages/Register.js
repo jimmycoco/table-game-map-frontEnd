@@ -113,7 +113,7 @@ const RegisterPage = (props) => {
             })
             .catch((error) => {
                 console.error(error);
-                if (error.response.data.error.message == "User already exists.") {
+                if (error.response.data.error.message === "User already exists.") {
                     alert("帳號已存在");
                 } else {
                     alert("註冊失敗，請檢察輸入內容");

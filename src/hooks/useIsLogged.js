@@ -10,7 +10,7 @@ function useIsLogged() {
         if (storedUser) {
             try {
                 const parsedUser = JSON.parse(storedUser);
-                const token = parsedUser && parsedUser.data && parsedUser.data.token
+                const token = parsedUser?.data?.token;
                 if (token) {
                     setIsLoggedIn(true);
                     setUser(parsedUser.data);
@@ -18,9 +18,11 @@ function useIsLogged() {
             } catch (error) {
                 console.error("Failed to parse user data from localStorage:", error);
             }
+        } else {
+            setIsLoggedIn(false);
         }
     }, []);  // 空依賴陣列確保只在初次渲染時執行
-
+    console.log(isLoggedIn);
     return { isLoggedIn, user };
 }
 
