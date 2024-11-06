@@ -73,7 +73,7 @@ const MyMapComponent = () => {
                 <Map
                     defaultZoom={14}
                     defaultCenter={center}
-                    mapId='DEMO_MAP_ID'
+                    mapId='dulcet-path-436514-r1'
                     onCameraChanged={(ev) =>
                         console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
                     }>
