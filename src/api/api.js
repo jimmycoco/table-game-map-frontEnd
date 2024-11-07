@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://board-game-map-hjfna2bhd9d0b2b7.eastasia-01.azurewebsites.net/', //後端API的URL,上架時要改
+    baseURL: 'https://board-game-map-hjfna2bhd9d0b2b7.westus2-01.azurewebsites.net/', //後端API的URL,上架時要改
 });
 
 //檢查是否登入
