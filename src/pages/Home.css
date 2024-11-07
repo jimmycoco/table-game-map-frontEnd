@@ -8,3 +8,27 @@
   height: 100vh;
   /* 根據需要調整高度 */
 }
+
+.slogan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  padding-top: 10%;
+}
+
+.large-text,
+.small-text {
+  font-family: 'Noto Serif TC', serif;
+  color: #4a3c2f;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  /* 加入陰影效果 */
+}
+
+/* 大字體樣式 */
+.large-text {
+  font-size: 48px;
+  font-weight: bold;
+  padding-bottom: 30px;
+}
