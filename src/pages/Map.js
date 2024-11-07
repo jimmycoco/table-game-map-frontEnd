@@ -13,14 +13,10 @@ const center = {
     lng: 121.49693286006418,
 };
 
-// const locations = [
-//     { key: 'first', location: { lat: 25.0390, lng: 121.5684 }, content: '第一個標點內容' },
-//     { key: 'second', location: { lat: 25.0320, lng: 121.5674 }, content: '第二個標點內容' },
-//     { key: 'third', location: { lat: 25.0310, lng: 121.5644 }, content: '第三個標點內容' },
-//     { key: 'forth', location: { lat: 25.0330, lng: 121.5684 }, content: '第四個標點內容' },
-//     { key: 'fifth', location: { lat: 25.0324, lng: 121.5694 }, content: '第五個標點內容' },
-//     { key: 'sixth', location: { lat: 25.0366, lng: 121.5675 }, content: '第六個標點內容' },
-// ];
+const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+const MAPID = process.env.REACT_APP_MAPID;
+
+
 
 const MyMapComponent = () => {
     const [locations, setLocations] = useState([]);
@@ -68,12 +64,12 @@ const MyMapComponent = () => {
     };
 
     return (
-        <APIProvider apiKey={'AIzaSyCuMvaOKLkG-YenisELasoL7RvjXH8l7KM'} onLoad={() => console.log('Maps API has loaded.')}>
+        <APIProvider apiKey={GOOGLE_MAPS_API_KEY} onLoad={() => console.log('Maps API has loaded.')}>
             <div id="map" style={{ height: '90vh', width: '100%', position: 'relative' }}>
                 <Map
                     defaultZoom={14}
                     defaultCenter={center}
-                    mapId='dulcet-path-436514-r1'
+                    mapId={MAPID}
                     onCameraChanged={(ev) =>
                         console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
                     }>
