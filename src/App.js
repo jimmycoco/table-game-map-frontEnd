@@ -7,6 +7,7 @@ import RootLayout from './pages/Root';
 import HomePage from './pages/Home';
 import MyMapComponent from './pages/Map'
 import LandmarkForm from './pages/apply'
+import AuthProvider from './contexts/authContext';
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,9 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 }
 

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Header.css"
-import useIsLogged from "../../hooks/useIsLogged";
+import { useAuth } from "../../contexts/authContext";
+// import useIsLogged from "../../hooks/useIsLogged";
 
 
 
@@ -9,7 +10,8 @@ const Header = (props) => {
         localStorage.removeItem('user');//刪除
         window.location.reload();
     }
-    const { isLoggedIn } = useIsLogged();
+    const { isLoggedIn, setIsLoggedIn } = useAuth()
+    // const { isLoggedIn } = useIsLogged();
     return (
         <header>
             <Link to="/" className="link">

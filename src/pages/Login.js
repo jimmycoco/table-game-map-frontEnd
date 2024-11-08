@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Card from "../components/UI/Card";
 import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "../contexts/authContext";
 import "./Log.css"
 import useInput from "../hooks/useInput";
 import api from "../api/api"
@@ -9,6 +10,7 @@ const LoginPage = (props) => {
 
     const navigate = useNavigate()
     const [errorMsg, setErrorMsg] = useState('');
+    const { setIsLoggedIn } = useAuth();
 
     const validateUsername = (value) => {
         if (value.trim() === '') {
@@ -52,29 +54,6 @@ const LoginPage = (props) => {
         formIsValid = true;
     }
 
-    // //當username input值變更時做的處理
-    // const handleUsernameInputChange = (event) => {
-    //     setUsernameTouched(true);
-    //     setUsername(event.target.value);
-    // };
-
-    // //當username input值blur時做的處理
-    // const handleUsernameInputBlur = (event) => {
-    //     setUsernameTouched(true);
-    // };
-
-    // //當password input值變更時做的處理
-    // const handlePasswordInputChange = (event) => {
-    //     setPassword(event.target.value);
-    //     setPasswordTouched(true);
-    // };
-
-    // //當password input值blur時做的處理
-    // const handlePasswordInputBlur = (event) => {
-    //     setPasswordTouched(true);
-    // };
-
-
     //處理送出表單
     const handleSubmit = (event) => {
         // 如果表單無效，不繼續執行後續動作
@@ -91,12 +70,13 @@ const LoginPage = (props) => {
             .post("/auth/login", userData)
             .then((result) => {
                 localStorage.setItem("user", JSON.stringify(result));
+                setIsLoggedIn(true);
                 navigate('/');
                 window.location.reload();
             })
             .catch((err) => {
                 setErrorMsg("登入失敗，請重新登入")
-                alert("登入失敗，請重新登入")
+                alert(errorMsg)
                 console.error(err);
             })
     };
