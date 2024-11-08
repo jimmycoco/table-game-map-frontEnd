@@ -2,27 +2,48 @@ import { useState } from "react";
 import Card from "../components/UI/Card";
 import { Link, useNavigate } from "react-router-dom"
 import "./Log.css"
+import useInput from "../hooks/useInput";
 import api from "../api/api"
 
 const LoginPage = (props) => {
-    //username欄位值
-    const [username, setUsername] = useState("");
-    //username touched值
-    const [usernameTouched, setUsernameTouched] = useState(false);
 
-    //password欄位值
-    const [password, setPassword] = useState("");
-    //password touched欄位值
-    const [passwordTouched, setPasswordTouched] = useState(false);
+    const navigate = useNavigate()
+    const [errorMsg, setErrorMsg] = useState('');
+
+    const validateUsername = (value) => {
+        if (value.trim() === '') {
+            return { isValid: false, errorMessage: '帳號為必填欄位' };
+        }
+        return { isValid: true, errorMessage: '' };
+    };
+
+    const validatePassword = (value) => {
+        if (value.trim() === '') {
+            return { isValid: false, errorMessage: '密碼為必填欄位' };
+        }
+        return { isValid: true, errorMessage: '' };
+    };
 
 
-    //username的檢核
-    const usernameIsValid = username.trim() !== "";
-    const usernameInputIsInValid = !usernameIsValid && usernameTouched;
 
-    //password的檢核
-    const passwordIsValid = password.trim() !== "";
-    const passwordInputIsInValid = !passwordIsValid && passwordTouched;
+    const {
+        value: username,
+        isValid: usernameIsValid,
+        errorMessage: usernameErrorMessage,
+        hasError: usernameInputHasError,
+        valueChangeHandler: usernameChangeHandler,
+        inputBlurHandler: usernameBlurHandler,
+    } = useInput(validateUsername);
+
+    const {
+        value: password,
+        isValid: passwordIsValid,
+        errorMessage: passwordErrorMessage,
+        hasError: passwordInputHasError,
+        valueChangeHandler: passwordChangeHandler,
+        inputBlurHandler: passwordBlurHandler,
+    } = useInput(validatePassword);
+
 
     //表單的狀態
     let formIsValid = false;
@@ -31,29 +52,28 @@ const LoginPage = (props) => {
         formIsValid = true;
     }
 
-    //當username input值變更時做的處理
-    const handleUsernameInputChange = (event) => {
-        setUsernameTouched(true);
-        setUsername(event.target.value);
-    };
+    // //當username input值變更時做的處理
+    // const handleUsernameInputChange = (event) => {
+    //     setUsernameTouched(true);
+    //     setUsername(event.target.value);
+    // };
 
-    //當username input值blur時做的處理
-    const handleUsernameInputBlur = (event) => {
-        setUsernameTouched(true);
-    };
+    // //當username input值blur時做的處理
+    // const handleUsernameInputBlur = (event) => {
+    //     setUsernameTouched(true);
+    // };
 
-    //當password input值變更時做的處理
-    const handlePasswordInputChange = (event) => {
-        setPassword(event.target.value);
-        setPasswordTouched(true);
-    };
+    // //當password input值變更時做的處理
+    // const handlePasswordInputChange = (event) => {
+    //     setPassword(event.target.value);
+    //     setPasswordTouched(true);
+    // };
 
-    //當password input值blur時做的處理
-    const handlePasswordInputBlur = (event) => {
-        setPasswordTouched(true);
-    };
+    // //當password input值blur時做的處理
+    // const handlePasswordInputBlur = (event) => {
+    //     setPasswordTouched(true);
+    // };
 
-    const navigate = useNavigate()
 
     //處理送出表單
     const handleSubmit = (event) => {
@@ -75,19 +95,20 @@ const LoginPage = (props) => {
                 window.location.reload();
             })
             .catch((err) => {
+                setErrorMsg("登入失敗，請重新登入")
                 alert("登入失敗，請重新登入")
                 console.error(err);
             })
     };
-    
+
 
     //根據usernameInput是否valid來顯示對應樣式 
-    const usernameInputClasses = usernameInputIsInValid
+    const usernameInputClasses = usernameInputHasError
         ? "input-invalid"
         : "input-valid";
 
     //根據passwordInput是否valid來顯示對應樣式 
-    const passwordInputClasses = passwordInputIsInValid
+    const passwordInputClasses = usernameInputHasError
         ? "input-invalid"
         : "input-valid";
     return (
@@ -100,12 +121,12 @@ const LoginPage = (props) => {
                         type="text"
                         placeholder="請輸入帳號"
                         value={username}
-                        onBlur={handleUsernameInputBlur}
-                        onChange={handleUsernameInputChange}
+                        onBlur={usernameBlurHandler}
+                        onChange={usernameChangeHandler}
                         className={`inputbox ${usernameInputClasses}`}
                     />
-                    {!usernameInputIsInValid || (
-                        <p className="remind-word">帳號為必填欄位</p>
+                    {!usernameInputHasError || (
+                        <p className="remind-word">{usernameErrorMessage}</p>
                     )}
                 </div>
 
@@ -116,12 +137,12 @@ const LoginPage = (props) => {
                         type="password"
                         placeholder="請輸入密碼"
                         value={password}
-                        onBlur={handlePasswordInputBlur}
-                        onChange={handlePasswordInputChange}
+                        onBlur={passwordBlurHandler}
+                        onChange={passwordChangeHandler}
                         className={`inputbox ${passwordInputClasses}`}
                     />
-                    {!passwordInputIsInValid || (
-                        <p className="remind-word">密碼為必填欄位</p>
+                    {!passwordInputHasError || (
+                        <p className="remind-word">{passwordErrorMessage}</p>
                     )}
                 </div>
 
