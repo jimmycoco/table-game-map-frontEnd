@@ -7,7 +7,7 @@ import { useAuth } from "../../contexts/authContext";
 const Header = (props) => {
     const userdelete = () => {
         localStorage.removeItem('user');//刪除
-        // window.location.reload();
+        window.location.reload();
     }
     const { isLoggedIn } = useAuth()
     return (
