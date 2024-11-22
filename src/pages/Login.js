@@ -7,7 +7,6 @@ import useInput from "../hooks/useInput";
 import api from "../api/api"
 
 const LoginPage = (props) => {
-
     const navigate = useNavigate()
     const [errorMsg, setErrorMsg] = useState('');
     const { setIsLoggedIn } = useAuth();
@@ -81,6 +80,11 @@ const LoginPage = (props) => {
             })
     };
 
+    const handleLineLogin = () => {
+        // 跳轉到 LINE 登入頁面
+        window.location.href = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2006566313&redirect_uri=${encodeURIComponent('http://localhost:3500/api/auth/lineLogin')}&state=YOUR_STATE&scope=profile%20openid%20email`;
+    };
+
 
     //根據usernameInput是否valid來顯示對應樣式 
     const usernameInputClasses = usernameInputHasError
@@ -138,6 +142,10 @@ const LoginPage = (props) => {
                         </p>
                     </Link>
                 </div>
+
+                <button type="button" className="line-login-button" onClick={handleLineLogin}>
+                    使用 LINE 登入
+                </button>
 
             </form>
         </Card >
